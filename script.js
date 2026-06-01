@@ -146,12 +146,22 @@ function initFAQ() {
     const btn = item.querySelector('.faq-question');
     if (!btn) return;
 
+    btn.setAttribute('aria-expanded', 'false');
+
     btn.addEventListener('click', () => {
       const isOpen = item.classList.contains('open');
 
-      items.forEach(i => i.classList.remove('open'));
+      items.forEach(i => {
+        i.classList.remove('open');
 
-      if (!isOpen) item.classList.add('open');
+        const otherBtn = i.querySelector('.faq-question');
+        if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
   });
 }
